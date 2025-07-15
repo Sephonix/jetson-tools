@@ -18,8 +18,7 @@ do
 
     if [ "$rm_old" = "yes" ]; then
         echo "Removing old OpenCV install"
-        wget https://github.com/Sephonix/jetson-tools/purge_all_opencv.sh && chmod a+x ./purge_all_opencv.sh
-        ( sudo ./purge_all_opencv.sh )
+        wget -O https://github.com/Sephonix/jetson-tools/purge_all_opencv.sh && chmod a+x ./purge_all_opencv.sh | bash
 	break
     elif [ "$rm_old" = "no" ]; then
 	break
