@@ -19,7 +19,7 @@ do
     if [ "$rm_old" = "yes" ]; then
         echo "Removing old OpenCV install"
         wget https://github.com/Sephonix/jetson-tools/purge_all_opencv.sh && chmod a+x ./purge_all_opencv.sh
-        ( ./purge_all_opencv.sh )
+        ( sudo ./purge_all_opencv.sh )
 	break
     elif [ "$rm_old" = "no" ]; then
 	break
@@ -53,7 +53,7 @@ echo "** Build opencv "${version}" (3/4)"
 echo "------------------------------------"
 mkdir release
 cd release/
-cmake -D WITH_CUDA=ON -D WITH_CUDNN=ON -D CUDA_ARCH_BIN="8.7" -D CUDA_ARCH_PTX="" -D OPENCV_GENERATE_PKGCONFIG=ON -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-${version}/modules -D WITH_GSTREAMER=ON -D WITH_QT=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+cmake -D WITH_CUDA=ON -D WITH_CUDNN=ON -D OPENCV_DNN_CUDA=ON -D CUDA_ARCH_BIN="8.7" -D CUDA_ARCH_PTX="sm_87" -D OPENCV_GENERATE_PKGCONFIG=ON -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-${version}/modules -D WITH_GSTREAMER=ON -D WITH_QT=ON -D WITH_LIBV4L=ON -D BUILD_opencv_python3=ON -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF -D BUILD_EXAMPLES=OFF -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
 make -j$(nproc)
 
 
